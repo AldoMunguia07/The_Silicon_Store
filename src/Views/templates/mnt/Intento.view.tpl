@@ -16,15 +16,15 @@
      {{endifnot isInsert}}
     <fieldset class="row flex-center align-center">
         <label class="col-5" for="cliente">Cliente</label>
-        <input class="col-7" id="cliente" name="cliente"   type="text" value="{{cliente}}" {{readonly}} placeholder="">
+        <input class="col-7" id="cliente" name="cliente"   type="text" value="{{cliente}}" {{readonly}} placeholder="" required>
     </fieldset>
     <fieldset class="row flex-center align-center">
         <label class="col-5" for="monto">Monto</label>
-        <input class="col-7" id="monto" name="monto"   type="number" value="{{monto}}" {{readonly}} placeholder="">
+        <input class="col-7" id="monto" name="monto"   type="number" step="0.01" value="{{monto}}" {{readonly}} placeholder="" required>
     </fieldset>
     <fieldset class="row flex-center align-center">
         <label class="col-5" for="fechaVencimiento">Fecha de vencimiento</label>
-        <input class="col-7" id="fechaVencimiento" name="fechaVencimiento"   type="date" value="{{fechaVencimiento}}" {{readonly}} placeholder="">
+        <input class="col-7" id="fechaVencimiento" name="fechaVencimiento"   type="date" value="{{fechaVencimiento}}" {{readonly}} placeholder="" required>
     </fieldset>
       <fieldset class="row flex-center align-center">
         <label class="col-5" for="estado">Estado</label>
