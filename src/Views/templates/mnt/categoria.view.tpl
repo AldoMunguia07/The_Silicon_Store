@@ -9,7 +9,7 @@
         <input class="col-7"  id="catid" name="catid" type="text" value="{{catid}}" {{readonly}} placeholder="" >
     </fieldset>
     {{endifnot isInsert}}
-      <fieldset class="row flex-center align-center">
+    <fieldset class="row flex-center align-center">
         <label class="col-5" for="catnom">Categoria</label>
         <input class="col-7" id="catnom" name="catnom"   type="text" value="{{catnom}}" {{readonly}} placeholder="">
     </fieldset>

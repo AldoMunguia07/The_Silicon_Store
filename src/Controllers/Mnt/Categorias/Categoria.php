@@ -1,9 +1,9 @@
 <?php
     namespace Controllers\Mnt\Categorias;
 
-use Controllers\PublicController;
-use Utilities\Validators;
-use Views\Renderer;
+    use Controllers\PublicController;
+    use Utilities\Validators;
+    use Views\Renderer;
 
     class Categoria extends PublicController
     {
@@ -18,6 +18,7 @@ use Views\Renderer;
             "ACT" => "Activo",
             "INA" => "Inactivo"
         );
+
         private $_viewData = array(
             "mode" => "INS",
             "catid" => 0,
@@ -29,6 +30,8 @@ use Views\Renderer;
             "catestOptions" => [],
             "csxsToken" => ""
         );
+
+        
 
         private function init()
         {

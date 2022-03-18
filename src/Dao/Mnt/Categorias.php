@@ -22,19 +22,21 @@
             
         }
 
-        public static function nuevaCategoria($catnom, $catest)
-        {
-            $sqlsrt = "INSERT INTO categorias (catnom, catest) values (:catnom, :catest);";
+        public static function nuevacategoria($catnom,$catest)
+            {
+                $sqlsrt = "INSERT INTO categorias (catnom,catest) values (:catnom,:catest);";
 
-            return self::executeNonQuery(
-                $sqlsrt, 
-                array(
-                    "catnom" => $catnom,
-                    "catest" => $catest
+                return self::executeNonQuery(
+                    $sqlsrt, 
+                    array(
 
-                )
-                );
-        }
+                            "catnom" => $catnom,
+
+                            "catest" => $catest,
+
+                    )
+                    );
+            }
 
         public static function actualizarCategoria($catid, $catnom, $catest)
         {
