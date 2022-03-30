@@ -30,6 +30,7 @@ class Index extends PublicController
     public function run() :void
     {
         $viewData = array();
+        $viewData["celular"] = \Dao\Rtl\Retail::obtenerCatalogoProductos();
         \Views\Renderer::render("index", $viewData);
     }
 }
