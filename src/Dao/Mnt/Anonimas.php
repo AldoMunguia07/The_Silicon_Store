@@ -7,6 +7,18 @@
 
             public static function obtenerTodos($anoncartid)
             {
+                $sqlsrt = "SELECT b.invPrdId codigo, b.nombre, b.descripcion, c.marca, a.cartPrc precio, a.cartCtd cantidad,
+                (a.cartCtd * a.cartPrc) total
+                FROM carretilla_anon a JOIN celular b
+                ON a.invPrdId = b.invPrdId
+                JOIN marca c ON b.idMarca = c.idMarca
+                 WHERE anoncartid=:anoncartid;";
+                return self::obtenerRegistros($sqlsrt,  array("anoncartid" => $anoncartid));
+                
+            }
+
+            public static function obtenerTodosI($anoncartid)
+            {
                 $sqlsrt = "SELECT * FROM carretilla_anon WHERE anoncartid=:anoncartid;";
                 return self::obtenerRegistros($sqlsrt,  array("anoncartid" => $anoncartid));
                 
