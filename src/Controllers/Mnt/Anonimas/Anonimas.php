@@ -1,23 +1,24 @@
 <?php
 
-                namespace Controllers\Mnt\Anonimas;
+    namespace Controllers\Mnt\Anonimas;
 
-                use Controllers\PublicController;
+    use Controllers\PublicController;
 
-                use Views\Renderer;
+    use Views\Renderer;
 
-                class Anonimas extends PublicController {
+    class Anonimas extends PublicController {
 
-                    public function run(): void {
+        public function run(): void {
 
-                    $viewData = array();
+        $viewData = array();
 
-                    $viewData["carretilla_anon"] = \Dao\Mnt\Anonimas::obtenerTodos();
 
-                    Renderer::render("mnt\Anonimas", $viewData);
-   
-                    }
+        $viewData["carretilla_anon"] = \Dao\Mnt\Anonimas::obtenerTodos($_SESSION["anoncartid"]);
 
-                }
+        Renderer::render("mnt\Anonimas", $viewData);
 
-            ?>
+        }
+
+    }
+
+?>

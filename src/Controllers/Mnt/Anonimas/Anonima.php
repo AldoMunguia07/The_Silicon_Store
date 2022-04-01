@@ -28,8 +28,6 @@
                         "anoncartid" => 0,
                         "invPrdId" => 0,
                         "cartCtd" => 0,
-                        
-
                         "modeDsc"=>"",
                         "readonly"=>"",
                         "isInsert"=>false,
@@ -70,6 +68,7 @@
             private function handlePost()
             {
                 \Utilities\ArrUtils::mergeFullArrayTo($_POST, $this->_viewData);
+                $this->_viewData["cartCtd"] = $this->_viewData["cartCtd"];
                 //print_r($_POST);
                 //\Utilities\Site::redirectToWithMsg("index.php", print_r($_POST));
                 /*if(!isset($_SESSION["Anonima_xssToken"]) || $_SESSION["Anonima_xssToken"] !== $this->_viewData["xssToken"])
@@ -98,42 +97,11 @@
                 else
                 {
 
-                   
-                   /* switch($this->_viewData["mode"])
+                    $tmpAnonima = \Dao\Mnt\Anonimas::obtenerAnonimaPorId(intval($this->_viewData["anoncartid"]), intval($this->_viewData["invPrdId"]));
+                    
+                    if(!$tmpAnonima)
                     {
-
-                        CASE "INS":                    
-                            $result = \Dao\Mnt\Anonimas::newAnonima($this->_viewData["cartCtd"],$this->_viewData["cartPrc"],$this->_viewData["cartIat"]);
-
-                        if($result)
-                        {
-                            \Utilities\Site::redirectToWithMsg("index.php?page=mnt.Anonimas.Anonimas", "Operacion realizada con exito");
-                        }
-                        break;
-
-                        CASE "UPD":                    
-                            $result = \Dao\Mnt\Anonimas::actualizarAnonima($this->_viewData["anoncartid"],$this->_viewData["invPrdId"],$this->_viewData["cartCtd"]);
-
-                        if($result)
-                        {
-                            \Utilities\Site::redirectToWithMsg("index.php", "Cantidad agregada al carrito");
-                        }
-                        break;
-
-                        CASE "DEL":                    
-                            $result = \Dao\Mnt\Anonimas::eliminarAnonima($this->_viewData["anoncartid"], $this->_viewData["invPrdId"]);
-
-                        if($result)
-                        {
-                            \Utilities\Site::redirectToWithMsg("index.php?page=mnt.Anonimas.Anonimas", "Operacion realizada con exito");
-                        }
-                        break;
-
-                    }*/
-
-                    if($this->_viewData["anoncartid"] == 0)
-                    {
-                        $result = \Dao\Mnt\Anonimas::newAnonima($this->_viewData["invPrdId"], $this->_viewData["cartCtd"],$this->_viewData["cartPrc"], date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")."+ 5 days")));
+                        $result = \Dao\Mnt\Anonimas::newAnonima($this->_viewData["anoncartid"], $this->_viewData["invPrdId"], $this->_viewData["cartCtd"],$this->_viewData["cartPrc"], date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")."+ 5 days")));
 
                         if($result)
                         {

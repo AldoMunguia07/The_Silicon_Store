@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP Version 7.2
  *
@@ -29,9 +30,26 @@ class Index extends PublicController
      */
     public function run() :void
     {
+        
+        
+        
+        if(!$_SESSION["anoncartid"])
+        {
+             $_SESSION["anoncartid"]=strtotime(date("Y-m-d H:i:s"));
+        }
+        
         $viewData = array();
+        
         $viewData["celular"] = \Dao\Rtl\Retail::obtenerCatalogoProductos();
+        
+       
+        //echo '<script>alert("'. $viewData["annoncartid"]  . '")</script>;';
+        for ($i = 0; $i < count($viewData["celular"]); $i++) {
+            $viewData["celular"][$i]["annoncartid"] =  $_SESSION["anoncartid"];
+        }
+        //print_r($viewData);
         \Views\Renderer::render("index", $viewData);
+        
     }
 }
 ?>

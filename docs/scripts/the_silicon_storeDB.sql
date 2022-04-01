@@ -93,7 +93,7 @@ ENGINE = InnoDB;
 -- Table `the_silicon_store`.`carretilla_anon`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `the_silicon_store`.`carretilla_anon` (
-  `anoncartid` BIGINT NOT NULL AUTO_INCREMENT,
+  `anoncartid` BIGINT(18) NOT NULL,
   `invPrdId` BIGINT NOT NULL,
   `cartCtd` INT NULL DEFAULT NULL,
   `cartPrc` DECIMAL(13,2) NULL DEFAULT NULL,
