@@ -1,0 +1,107 @@
+{
+    "statusCode": 201,
+    "result": {
+        "id": "16D42411RH6560926",
+        "status": "COMPLETED",
+        "purchase_units": [
+            {
+                "reference_id": "test1638917363",
+                "shipping": {
+                    "name": {
+                        "full_name": "Osman Gomez"
+                    },
+                    "address": {
+                        "address_line_1": "Free Trade Zone",
+                        "admin_area_2": "Tegucigalpa",
+                        "admin_area_1": "Tegucigalpa",
+                        "postal_code": "12345",
+                        "country_code": "HN"
+                    }
+                },
+                "payments": {
+                    "captures": [
+                        {
+                            "id": "5DS4513503472683P",
+                            "status": "COMPLETED",
+                            "amount": {
+                                "currency_code": "USD",
+                                "value": "5015.00"
+                            },
+                            "final_capture": true,
+                            "seller_protection": {
+                                "status": "ELIGIBLE",
+                                "dispute_categories": [
+                                    "ITEM_NOT_RECEIVED",
+                                    "UNAUTHORIZED_TRANSACTION"
+                                ]
+                            },
+                            "seller_receivable_breakdown": {
+                                "gross_amount": {
+                                    "currency_code": "USD",
+                                    "value": "5015.00"
+                                },
+                                "paypal_fee": {
+                                    "currency_code": "USD",
+                                    "value": "195.89"
+                                },
+                                "net_amount": {
+                                    "currency_code": "USD",
+                                    "value": "4819.11"
+                                }
+                            },
+                            "links": [
+                                {
+                                    "href": "https:\/\/api.sandbox.paypal.com\/v2\/payments\/captures\/5DS4513503472683P",
+                                    "rel": "self",
+                                    "method": "GET"
+                                },
+                                {
+                                    "href": "https:\/\/api.sandbox.paypal.com\/v2\/payments\/captures\/5DS4513503472683P\/refund",
+                                    "rel": "refund",
+                                    "method": "POST"
+                                },
+                                {
+                                    "href": "https:\/\/api.sandbox.paypal.com\/v2\/checkout\/orders\/16D42411RH6560926",
+                                    "rel": "up",
+                                    "method": "GET"
+                                }
+                            ],
+                            "create_time": "2022-04-02T16:36:20Z",
+                            "update_time": "2022-04-02T16:36:20Z"
+                        }
+                    ]
+                }
+            }
+        ],
+        "payer": {
+            "name": {
+                "given_name": "Osman",
+                "surname": "Gomez"
+            },
+            "email_address": "sb-ano1n14633114@personal.example.com",
+            "payer_id": "V4A2CUMBZYFXC",
+            "address": {
+                "country_code": "HN"
+            }
+        },
+        "links": [
+            {
+                "href": "https:\/\/api.sandbox.paypal.com\/v2\/checkout\/orders\/16D42411RH6560926",
+                "rel": "self",
+                "method": "GET"
+            }
+        ]
+    },
+    "headers": {
+        "": "",
+        "Content-Type": "application\/json",
+        "Content-Length": "1458",
+        "Connection": "keep-alive",
+        "Date": "Sat, 02 Apr 2022 16",
+        "Application_id": "APP-80W284485P519543T",
+        "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+        "Caller_acct_num": "EFAAV3SF7AQNC",
+        "Paypal-Debug-Id": "29cc1275086cf",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
+    }
+}

@@ -1,16 +1,16 @@
 <?php
-                namespace Controllers\Mnt\Anonimas;
+                namespace Controllers\Mnt\documentoFiscals;
 
                 use Controllers\PublicController;
                 use Utilities\Validators;
                 use Views\Renderer;
 
-                class Anonima extends PublicController
+                class documentoFiscal extends PublicController
                 {
             
 
                     private $_modeStrings = array(
-                        "INS" => "Nuevo Anonima",
+                        "INS" => "Nuevo documentoFiscal",
                         "UPD" => "Editar %s (%s)",
                         "DSP" => "Detalle de %s (%s)",
                         "DEL" => "Eliminando %s (%s)"
@@ -25,9 +25,14 @@
                     private $_viewData = array(
                     "mode" => "INS",
             
-                        "anoncartid" => 0,
-                        "invPrdId" => 0,
-                        "cartCtd" => 0,
+"doccod" => 0,
+"invPrdId" => 0,
+"docCtd" => "",
+"docPrc" => "",
+"docIva" => "",
+"docLObs" => "",
+"docDsc" => "",
+
                         "modeDsc"=>"",
                         "readonly"=>"",
                         "isInsert"=>false,
@@ -44,43 +49,40 @@
                     $this->_viewData["mode"] = $_GET["mode"];
                 }
 
-                if(isset($_GET["invPrdId"]) && isset($_GET["anoncartid"]))
+                if(isset($_GET["invPrdId"]))
                 {
                     $this->_viewData["invPrdId"] = $_GET["invPrdId"];
-                    $this->_viewData["anoncartid"] = $_GET["anoncartid"];
                 }
 
-                /*if(!isset($this->_modeStrings[$this->_viewData["mode"]]))
+                if(!isset($this->_modeStrings[$this->_viewData["mode"]]))
                 {
                     error_log($this->toString()." ".$this->_viewData["mode"], 0);
 
-                    \Utilities\Site::redirectToWithMsg("index.php?page=mnt.Anonimas.Anonimas",
+                    \Utilities\Site::redirectToWithMsg("index.php?page=mnt.documentoFiscals.documentoFiscals",
                     "Sucedio un error al procesar la pagina");
                 }
 
                 if($this->_viewData["mode"] != "INS" && intval($this->_viewData["invPrdId"], 10) != 0)
                 {
                     $this->_viewData["mode"] !== "DSP";
-                }*/
+                }
 
             }
 
             private function handlePost()
             {
                 \Utilities\ArrUtils::mergeFullArrayTo($_POST, $this->_viewData);
-                $this->_viewData["cartCtd"] = $this->_viewData["cartCtd"];
-                //print_r($_POST);
-                //\Utilities\Site::redirectToWithMsg("index.php", print_r($_POST));
-                /*if(!isset($_SESSION["Anonima_xssToken"]) || $_SESSION["Anonima_xssToken"] !== $this->_viewData["xssToken"])
+
+                if(!isset($_SESSION["documentoFiscal_xssToken"]) || $_SESSION["documentoFiscal_xssToken"] !== $this->_viewData["xssToken"])
                 {
-                    unset($_SESSION["Anonima_xssToken"]);
+                    unset($_SESSION["documentoFiscal_xssToken"]);
                     \Utilities\Site::redirectToWithMsg(
-                        "index.php?page=mnt.Anonimas.Anonimas",
+                        "index.php?page=mnt.documentoFiscals.documentoFiscals",
                     "Ocurrio un error, no se puede procesar el formulario");
-                }*/
+                }
 
                 $this->_viewData["invPrdId"] = intval($this->_viewData["invPrdId"], 10);
-                $this->_viewData["anoncartid"] = intval($this->_viewData["anoncartid"], 10);
+
                 if(true)/* aplicar validaciones */
                 {
 
@@ -97,52 +99,37 @@
                 else
                 {
 
-                    $tmpAnonima = \Dao\Mnt\Anonimas::obtenerAnonimaPorId(intval($this->_viewData["anoncartid"]), intval($this->_viewData["invPrdId"]));
-                    
-                    if(!$tmpAnonima)
+                    unset($_SESSION["documentoFiscal_xssToken"]);
+                        
+                    switch($this->_viewData["mode"])
                     {
-                        if($this->_viewData["cartCtd"] <= 0)
+
+                        CASE "INS":                    
+                            $result = \Dao\Mnt\documentoFiscals::newdocumentoFiscal($this->_viewData["docCtd"],$this->_viewData["docPrc"],$this->_viewData["docIva"],$this->_viewData["docLObs"],$this->_viewData["docDsc"]);
+
+                        if($result)
                         {
-                            \Utilities\Site::redirectToWithMsg("index.php", "Ingrese al menos 1 producto");
+                            \Utilities\Site::redirectToWithMsg("index.php?page=mnt.documentoFiscals.documentoFiscals", "Operacion realizada con exito");
                         }
-                        else
+                        break;
+
+                        CASE "UPD":                    
+                            $result = \Dao\Mnt\documentoFiscals::actualizardocumentoFiscal($this->_viewData["doccod"],$this->_viewData["invPrdId"],$this->_viewData["docCtd"],$this->_viewData["docPrc"],$this->_viewData["docIva"],$this->_viewData["docLObs"],$this->_viewData["docDsc"]);
+
+                        if($result)
                         {
-                            $result = \Dao\Mnt\Anonimas::newAnonima($this->_viewData["anoncartid"], $this->_viewData["invPrdId"], $this->_viewData["cartCtd"],$this->_viewData["cartPrc"], date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")."+ 5 days")));
-
-                            if($result)
-                            {
-                                \Utilities\Site::redirectToWithMsg("index.php", "Agregado al carrito");
-                            }
-
+                            \Utilities\Site::redirectToWithMsg("index.php?page=mnt.documentoFiscals.documentoFiscals", "Operacion realizada con exito");
                         }
-                        
+                        break;
 
-                        
-                        
-                    }
-                    else
-                    {
-                        if($this->_viewData["cartCtd"] > 0)
+                        CASE "DEL":                    
+                            $result = \Dao\Mnt\documentoFiscals::eliminardocumentoFiscal($this->_viewData["invPrdId"]);
+
+                        if($result)
                         {
-                            $result = \Dao\Mnt\Anonimas::actualizarAnonima($this->_viewData["anoncartid"],$this->_viewData["invPrdId"],$this->_viewData["cartCtd"]);
-
-                            if($result)
-                            {
-                                \Utilities\Site::redirectToWithMsg("index.php", "Cantidad agregada al carrito");
-                            }
-
+                            \Utilities\Site::redirectToWithMsg("index.php?page=mnt.documentoFiscals.documentoFiscals", "Operacion realizada con exito");
                         }
-                        else
-                        {
-                            $result = \Dao\Mnt\Anonimas::eliminarAnonima($this->_viewData["anoncartid"], $this->_viewData["invPrdId"]);
-
-                            if($result)
-                            {
-                                \Utilities\Site::redirectToWithMsg("index.php", "Producto eliminado del carrito");
-                            }
-
-                        }
-                        
+                        break;
 
                     }
                 }
@@ -159,8 +146,8 @@
                 else
                 {
 
-                    $tmpAnonima = \Dao\Mnt\Anonimas::obtenerAnonimaPorId($this->_viewData["anoncartid"], intval($this->_viewData["invPrdId"]));
-                    \Utilities\ArrUtils::mergeFullArrayTo($tmpAnonima, $this->_viewData);
+                    $tmpdocumentoFiscal = \Dao\Mnt\documentoFiscals::obtenerdocumentoFiscalPorId(intval($this->_viewData["invPrdId"]));
+                    \Utilities\ArrUtils::mergeFullArrayTo($tmpdocumentoFiscal, $this->_viewData);
             
 
                     $this->_viewData["modeDsc"] = sprintf($this->_modeStrings[$this->_viewData["mode"]], $this->_viewData["invPrdId"], $this->_viewData["invPrdId"]);
@@ -180,8 +167,8 @@
                     $this->_viewData["option"]
                 );
 
-                $this->_viewData["xssToken"] = md5(time() . "Anonima");
-                $_SESSION["Anonima_xssToken"] = $this->_viewData["xssToken"];
+                $this->_viewData["xssToken"] = md5(time() . "documentoFiscal");
+                $_SESSION["documentoFiscal_xssToken"] = $this->_viewData["xssToken"];
             }
 
                 public function run(): void
@@ -193,8 +180,8 @@
                     {
                         $this->handlePost();
                     }
-                    //$this->prepareViewData();
-                    Renderer::render("mnt/Anonima", $this->_viewData);
+                    $this->prepareViewData();
+                    Renderer::render("mnt/documentoFiscal", $this->_viewData);
                 }
         }
 

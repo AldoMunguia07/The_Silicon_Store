@@ -15,7 +15,23 @@ class Accept extends PublicController{
         } else {
             $dataview["orderjson"] = "No Order Available!!!";
         }
-        \Views\Renderer::render("paypal/accept", $dataview);
+
+        $metadata = json_decode($dataview["orderjson"]);
+        $statusCode =$metadata->statusCode;
+        $obs = $metadata->result->status;
+        $shipping = json_encode($metadata->result->purchase_units[0]->shipping, JSON_PRETTY_PRINT);
+        $fechadlv = $metadata->result->purchase_units[0]->payments->captures[0]->create_time;
+        $frmPago = "PayPal";
+ 
+
+ 
+    
+   
+        print($fechadlv);
+       
+
+        
+        //\Views\Renderer::render("paypal/accept", $dataview);
     }
 }
 
