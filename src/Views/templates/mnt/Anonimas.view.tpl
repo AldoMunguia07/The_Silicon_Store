@@ -32,6 +32,9 @@
             </tbody>
             
         </table>
+       {{if mostrar}}
         <form action="index.php?page=mnt-Autenticados-Autenticados" method="post">
             <button type="submit" name="btnConfirmar" class="btn primary">Pagar</button>
         </form>
+        {{endif mostrar}}
+    

@@ -5,7 +5,7 @@ use Dao\Table;
 
 class Retail extends Table{
 
-    public static function obtenerCatalogoProductos()
+   /* public static function obtenerCatalogoProductos()
     {
         $sqlstr = "select z.invPrdId, z.nombre, z.descripcion, z.precio as cartPrc, z.cantidad, sum(z.cartCtd) as cartCtd , z.cantidad - sum(z.cartCtd) as StockDisp
         from (
@@ -18,9 +18,9 @@ class Retail extends Table{
         group by  z.invPrdId, z.nombre, z.descripcion, z.precio, z.cantidad
         ;";
         return self::obtenerRegistros($sqlstr, []);
-    }
+    }*/
 
-    /*public static function obtenerCatalogoProductos()
+    public static function obtenerCatalogoProductos()
     {
         $sqlstr = "select z.invPrdId, z.nombre, z.descripcion, z.precio as cartPrc, z.cantidad, sum(z.cartCtd) as cartCtd , z.cantidad - sum(z.cartCtd) as StockDisp
         from (
@@ -38,7 +38,7 @@ class Retail extends Table{
         group by  z.invPrdId, z.nombre, z.descripcion, z.precio, z.cantidad
         ;";
         return self::obtenerRegistros($sqlstr, []);
-    }*/
+    }
 }
 
 ?>

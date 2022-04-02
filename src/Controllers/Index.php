@@ -21,6 +21,7 @@ namespace Controllers;
  * @license  MIT http://
  * @link     http://
  */
+
 class Index extends PublicController
 {
     /**
@@ -30,7 +31,14 @@ class Index extends PublicController
      */
     public function run() :void
     {
-        
+
+      
+        if (isset($_SESSION['start']) && (time() - $_SESSION['start'] > 259200)) {
+            session_unset(); 
+            session_destroy(); 
+           
+        }
+        $_SESSION['start'] = time();
         
         
         if(!$_SESSION["anoncartid"])

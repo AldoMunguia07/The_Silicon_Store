@@ -32,6 +32,8 @@
             </tbody>
             
         </table>
+        {{if mostrar}}
         <form action="index.php?page=checkout_checkout" method="post">
             <button type="submit" name="btnConfirmar" class="btn primary">Pagar</button>
         </form>
+        {{endif mostrar}}

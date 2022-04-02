@@ -12,7 +12,7 @@
       <span>{{StockDisp}}</span>
       <br>
       <input type="hidden" name="cant" value="{{cant}}">
-      <input class="col-7" id="cartCtd" name="cartCtd" min="0"  type="number" value="{{cartCtd}}" style="width: 60px;">
+      <input class="col-7" id="cartCtd" name="cartCtd" min="1" max="{{StockDisp}}"  type="number" value="{{cartCtd}}" style="width: 60px;">
       <br>
       <br>
       <button type="submit" name="btnConfirmar" class="btn primary">Agregar</button>

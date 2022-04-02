@@ -101,12 +101,16 @@
                     
                     if(!$tmpAnonima)
                     {
+                        
                         $result = \Dao\Mnt\Anonimas::newAnonima($this->_viewData["anoncartid"], $this->_viewData["invPrdId"], $this->_viewData["cartCtd"],$this->_viewData["cartPrc"], date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")."+ 5 days")));
 
                         if($result)
                         {
                             \Utilities\Site::redirectToWithMsg("index.php", "Agregado al carrito");
                         }
+
+                        
+                        
                     }
                     else
                     {
