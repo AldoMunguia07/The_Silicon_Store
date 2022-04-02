@@ -53,35 +53,18 @@ CREATE TABLE IF NOT EXISTS `The_Silicon_Store`.`celular` (
 ENGINE = InnoDB;
 
 
-
--- -----------------------------------------------------
--- Table `The_Silicon_Store`.`almacen`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `The_Silicon_Store`.`almacen` (
-  `id` BIGINT(13) NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  `direccion` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `The_Silicon_Store`.`inventario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `The_Silicon_Store`.`inventario` (
+ `idInventario` BIGINT(13) NOT NULL AUTO_INCREMENT,
   `invPrdId` BIGINT(13) NOT NULL,
-  `idAlmacen` BIGINT(13) NOT NULL,
   `cantidad` INT NOT NULL,
-  PRIMARY KEY (`invPrdId`, `idAlmacen`),
-  INDEX `idAlmacen_idx` (`idAlmacen` ASC) VISIBLE,
+  PRIMARY KEY (`idInventario`, `invPrdId`),
+  INDEX `fk_invPrdId_inventario` (`invPrdId` ASC) VISIBLE,
   CONSTRAINT `idCelular`
     FOREIGN KEY (`invPrdId`)
     REFERENCES `The_Silicon_Store`.`celular` (`invPrdId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `idAlmacen`
-    FOREIGN KEY (`idAlmacen`)
-    REFERENCES `The_Silicon_Store`.`almacen` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -175,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `the_silicon_store`.`documento_fiscal` (
   `docfch` DATETIME NULL DEFAULT NULL,
   `usercod` BIGINT NULL DEFAULT NULL,
   `docobs` VARCHAR(256) NULL DEFAULT NULL,
-  `docshipping` VARCHAR(256) NULL DEFAULT NULL,
+  `docshipping` MEDIUMTEXT NULL DEFAULT NULL,
   `docest` CHAR(3) NULL DEFAULT NULL,
   `docmeta` MEDIUMTEXT NULL DEFAULT NULL,
   `docfchdlv` DATETIME NULL DEFAULT NULL,

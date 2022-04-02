@@ -5,7 +5,8 @@
   <section>
     <form action="index.php?page=mnt-Anonimas-Anonima&mode=UPD&anoncartid={{annoncartid}}&invPrdId={{invPrdId}}" method="post">
       <h2>{{nombre}}</h2>
-      <h3>{{descripcion}}</h3>
+      <h3>{{marca}}</h3>
+      <h4>{{descripcion}}</h4>
       <span>{{cartPrc}}</span>
       <input type="hidden" name="cartPrc" value="{{cartPrc}}">
       <br>

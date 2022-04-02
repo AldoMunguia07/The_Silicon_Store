@@ -16,22 +16,49 @@ class Accept extends PublicController{
             $dataview["orderjson"] = "No Order Available!!!";
         }
 
-        $metadata = json_decode($dataview["orderjson"]);
-        $statusCode =$metadata->statusCode;
-        $obs = $metadata->result->status;
-        $shipping = json_encode($metadata->result->purchase_units[0]->shipping, JSON_PRETTY_PRINT);
-        $fechadlv = $metadata->result->purchase_units[0]->payments->captures[0]->create_time;
-        $frmPago = "PayPal";
- 
+        $userId = $_SESSION["login"]["userId"];
+        $carretilla = \Dao\Mnt\Autenticados::obtenerTodos($userId);
 
- 
-    
-   
-        print($fechadlv);
+        if($carretilla)
+        {
+            $metadata = json_decode($dataview["orderjson"]);
+            $statusCode =$metadata->statusCode;
+            $obs = $metadata->result->status;
+            $shipping = json_encode($metadata->result->purchase_units[0]->shipping, JSON_PRETTY_PRINT);
+            $fechadlv = $metadata->result->purchase_units[0]->payments->captures[0]->create_time;
+            $frmPago = "PyP";
+            $timestamp = strtotime($fechadlv);
+            $fechadlv = date("Y-m-d H:i:s", $timestamp);
+
+            $result = \Dao\Mnt\documentos::newdocumento($userId, $obs, $shipping, $statusCode, json_encode($metadata, JSON_PRETTY_PRINT), $fechadlv, $statusCode, $frmPago);
+            $ultimaFactura= \Dao\Mnt\documentos::obtenerUltimaFactura();
+          
+            $idFactura = $ultimaFactura[0]["doccod"];
+            if($result)
+            {
+                for($i = 0; $i < count($carretilla); $i++) 
+                {
+                    $idProducto = $carretilla[$i]["codigo"];
+                    $cantidad = $carretilla[$i]["cantidad"];
+                    $precio = $carretilla[$i]["precio"];
+                    $impuesto = 0.15;
+                    $observacion = $obs;
+                    $descuento = 0.00;
+                    
+
+                  $resultado = \Dao\Mnt\documentoFiscals::newdocumentoFiscal($idFactura ,$idProducto,$cantidad, $precio ,$impuesto, $observacion,  $descuento);
+                  if($resultado)
+                  {
+                    $delete = \Dao\Mnt\Autenticados::eliminarAutenticado($userId, $idProducto);
+                        
+                  }
+
+                }
+            }
+            
+        }
        
-
-        
-        //\Views\Renderer::render("paypal/accept", $dataview);
+        \Views\Renderer::render("paypal/accept", $dataview);
     }
 }
 

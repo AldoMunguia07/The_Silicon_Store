@@ -1,102 +1,111 @@
 <?php
-                namespace Dao\Mnt;
-                use Dao\Table;
 
-            class documentos extends Table
-            {
+namespace Dao\Mnt;
 
-            public static function obtenerTodos()
-            {
-                $sqlsrt = "SELECT * FROM documento_fiscal;";
-                return self::obtenerRegistros($sqlsrt, array());
-                
-            }
+use Dao\Table;
 
-                    public static function obtenerdocumentoPorId($doccod)
-                    {
-                        $sqlsrt = "SELECT * FROM documento_fiscal WHERE doccod=:doccod;";
-                        return self::obtenerUnRegistro(
-                            $sqlsrt, 
-                            array("doccod" => $doccod)
-                        );
-                        
-                    }
+class documentos extends Table
+{
 
-            public static function newdocumento($usercod,$docobs,$docshipping,$docest,$docmeta,$docfchdlv,$docestdlv,$docFrmPgo)
-            {
-                $sqlsrt = "INSERT INTO documento_fiscal (docfch,usercod,docobs,docshipping,docest,docmeta,docfchdlv,docestdlv,docFrmPgo) values (:docfch,:usercod,:docobs,:docshipping,:docest,:docmeta,:docfchdlv,:docestdlv,:docFrmPgo);";
+    public static function obtenerTodos()
+    {
+        $sqlsrt = "SELECT * FROM documento_fiscal;";
+        return self::obtenerRegistros($sqlsrt, array());
+    }
 
-                return self::executeNonQuery(
-                    $sqlsrt, 
-                    array(
+    public static function obtenerdocumentoPorId($doccod)
+    {
+        $sqlsrt = "SELECT * FROM documento_fiscal WHERE doccod=:doccod;";
+        return self::obtenerUnRegistro(
+            $sqlsrt,
+            array("doccod" => $doccod)
+        );
+    }
 
-                            "docfch" => date("Y-m-d H:i:s"),
+    public static function newdocumento($usercod, $docobs, $docshipping, $docest, $docmeta, $docfchdlv, $docestdlv, $docFrmPgo)
+    {
+        $sqlsrt = "INSERT INTO documento_fiscal (docfch,usercod,docobs,docshipping,docest,docmeta,docfchdlv,docestdlv,docFrmPgo) values (:docfch,:usercod,:docobs,:docshipping,:docest,:docmeta,:docfchdlv,:docestdlv,:docFrmPgo);";
 
-                            "usercod" => $usercod,
+        return self::executeNonQuery(
+            $sqlsrt,
+            array(
 
-                            "docobs" => $docobs,
+                "docfch" => date("Y-m-d H:i:s"),
 
-                            "docshipping" => $docshipping,
+                "usercod" => $usercod,
 
-                            "docest" => $docest,
+                "docobs" => $docobs,
 
-                            "docmeta" => $docmeta,
+                "docshipping" => $docshipping,
 
-                            "docfchdlv" => $docfchdlv,
+                "docest" => $docest,
 
-                            "docestdlv" => $docestdlv,
+                "docmeta" => $docmeta,
 
-                            "docFrmPgo" => $docFrmPgo,
+                "docfchdlv" => $docfchdlv,
 
-                    )
-                    );
-            }
+                "docestdlv" => $docestdlv,
 
-            public static function actualizardocumento($doccod,$docfch,$usercod,$docobs,$docshipping,$docest,$docmeta,$docfchdlv,$docestdlv,$docFrmPgo)
-            {
-                $sqlsrt = "UPDATE documento_fiscal SET docfch=:docfch,usercod=:usercod,docobs=:docobs,docshipping=:docshipping,docest=:docest,docmeta=:docmeta,docfchdlv=:docfchdlv,docestdlv=:docestdlv,docFrmPgo=:docFrmPgo WHERE doccod=:doccod;";
-        
-                return self::executeNonQuery(
-                    $sqlsrt, 
-                    array(
+                "docFrmPgo" => $docFrmPgo,
 
-                            "doccod" => $doccod,
+            )
+        );
+    }
 
-                            "docfch" => $docfch,
+    public static function actualizardocumento($doccod, $docfch, $usercod, $docobs, $docshipping, $docest, $docmeta, $docfchdlv, $docestdlv, $docFrmPgo)
+    {
+        $sqlsrt = "UPDATE documento_fiscal SET docfch=:docfch,usercod=:usercod,docobs=:docobs,docshipping=:docshipping,docest=:docest,docmeta=:docmeta,docfchdlv=:docfchdlv,docestdlv=:docestdlv,docFrmPgo=:docFrmPgo WHERE doccod=:doccod;";
 
-                            "usercod" => $usercod,
+        return self::executeNonQuery(
+            $sqlsrt,
+            array(
 
-                            "docobs" => $docobs,
+                "doccod" => $doccod,
 
-                            "docshipping" => $docshipping,
+                "docfch" => $docfch,
 
-                            "docest" => $docest,
+                "usercod" => $usercod,
 
-                            "docmeta" => $docmeta,
+                "docobs" => $docobs,
 
-                            "docfchdlv" => $docfchdlv,
+                "docshipping" => $docshipping,
 
-                            "docestdlv" => $docestdlv,
+                "docest" => $docest,
 
-                            "docFrmPgo" => $docFrmPgo,
+                "docmeta" => $docmeta,
 
-                    )
-                    );
-            }
+                "docfchdlv" => $docfchdlv,
 
-                    public static function eliminardocumento($doccod)
-                    {
-                        $sqlsrt = "DELETE FROM documento_fiscal WHERE doccod=:doccod;";
+                "docestdlv" => $docestdlv,
 
-                        return self::executeNonQuery(
-                            $sqlsrt, 
-                            array(
-                            
-                                "doccod" => $doccod
+                "docFrmPgo" => $docFrmPgo,
 
-                            )
-                            );
-                    }
- 
-                }
-            ?>
+            )
+        );
+    }
+
+    public static function eliminardocumento($doccod)
+    {
+        $sqlsrt = "DELETE FROM documento_fiscal WHERE doccod=:doccod;";
+
+        return self::executeNonQuery(
+            $sqlsrt,
+            array(
+
+                "doccod" => $doccod
+
+            )
+        );
+    }
+
+    public static function obtenerUltimaFactura()
+        {
+            $sqlstr = "select doccod from documento_fiscal ORDER BY doccod DESC LIMIT 1";
+            return self::obtenerRegistros(
+                $sqlstr, 
+                array()
+            );
+        }
+}
+
+?>

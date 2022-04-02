@@ -82,15 +82,16 @@
                     );
             }
 
-                    public static function eliminarAutenticado($usercod)
+                    public static function eliminarAutenticado($usercod, $invPrdId)
                     {
-                        $sqlsrt = "DELETE FROM carretilla_auth WHERE usercod=:usercod;";
+                        $sqlsrt = "DELETE FROM carretilla_auth WHERE usercod=:usercod AND invPrdId=:invPrdId;";
 
                         return self::executeNonQuery(
                             $sqlsrt, 
                             array(
                             
-                                "usercod" => $usercod
+                                "usercod" => $usercod,
+                                "invPrdId" => $invPrdId
 
                             )
                             );
