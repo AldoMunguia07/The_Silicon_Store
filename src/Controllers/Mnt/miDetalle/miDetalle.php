@@ -2,11 +2,12 @@
 
     namespace Controllers\Mnt\miDetalle;
 
-    use Controllers\PublicController;
+    use Controllers\PrivateController;
+
 
     use Views\Renderer;
 
-    class miDetalle extends PublicController {
+    class miDetalle extends PrivateController {
 
         public function run(): void {
 

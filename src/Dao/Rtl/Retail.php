@@ -26,14 +26,14 @@ class Retail extends Table{
         from (
         select a.invPrdId, a.nombre, f.marca, a.descripcion, a.precio, b.cantidad,  ifnull(d.cartCtd, 0) as cartCtd from
             celular a
-            left join inventario b on a.invPrdId = b.invPrdId
+             join inventario b on a.invPrdId = b.invPrdId
             left join carretilla_anon d on a.invPrdId = d.invPrdId and d.cartIat >= now()
             join marca f on a.idMarca = f.idMarca
         where a.estado='ACT'
         union all
         select a.invPrdId, a.nombre, f.marca, a.descripcion, a.precio, b.cantidad,  ifnull(e.cartCtd, 0) as cartCtd from
             celular a
-            left join inventario b on a.invPrdId = b.invPrdId
+             join inventario b on a.invPrdId = b.invPrdId
             left join carretilla_auth e on a.invPrdId = e.invPrdId and e.cartIat >= now()
             join marca f on a.idMarca = f.idMarca
         where a.estado='ACT' ) as z

@@ -33,10 +33,7 @@
                                 {
                                     $delete = \Dao\Mnt\Anonimas::eliminarAnonima($_SESSION["anoncartid"], $productId);
 
-                                    if( $i == count($viewData["carretilla_anon"]) - 1)
-                                    {
-                                        unset($_SESSION["anoncartid"]);
-                                    }
+                                    
 
                                 }
                             }

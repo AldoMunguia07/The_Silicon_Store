@@ -31,6 +31,9 @@
         <li><a href="index.php?page=IndexAuth"><i class="fas fa-home"></i>&nbsp;Inicio</a></li>
         <li><a href="index.php?page=Catalogo"><i class="fas fa-home"></i>&nbsp;Catalogo</a></li>
          <li><a href="index.php?page=mnt.misTransacciones.misTransacciones"><i class="fas fa-home"></i>&nbsp;Mis transacciones</a></li>
+         <li><a href="index.php?page=mnt.marcas.marcas"><i class="fas fa-home"></i>&nbsp;Marcas</a></li>
+         <li><a href="index.php?page=mnt.celulars.celulars"><i class="fas fa-home"></i>&nbsp;Celulares</a></li>
+         <li><a href="index.php?page=mnt.inventarios.inventarios"><i class="fas fa-home"></i>&nbsp;Inventario</a></li>
         {{foreach NAVIGATION}}
             <li><a href="{{nav_url}}">{{nav_label}}</a></li>
         {{endfor NAVIGATION}}
