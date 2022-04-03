@@ -1,11 +1,11 @@
 <?php
                 namespace Controllers\Mnt\Autenticados;
 
-                use Controllers\PublicController;
+                use Controllers\PrivateController;
                 use Utilities\Validators;
                 use Views\Renderer;
 
-                class Autenticado extends PublicController
+                class Autenticado extends PrivateController
                 {
             
 
@@ -25,11 +25,11 @@
                     private $_viewData = array(
                     "mode" => "INS",
             
-"usercod" => 0,
-"invPrdId" => 0,
-"cartCtd" => "",
-"cartPrc" => "",
-"cartIat" => "",
+                        "usercod" => 0,
+                        "invPrdId" => 0,
+                        "cartCtd" => "",
+                        "cartPrc" => "",
+                        "cartIat" => "",
 
                         "modeDsc"=>"",
                         "readonly"=>"",
@@ -47,23 +47,24 @@
                     $this->_viewData["mode"] = $_GET["mode"];
                 }
 
-                if(isset($_GET["invPrdId"]))
+                if(isset($_GET["invPrdId"]) && isset($_GET["usercod"]))
                 {
                     $this->_viewData["invPrdId"] = $_GET["invPrdId"];
+                    $this->_viewData["usercod"] = $_GET["usercod"];
                 }
 
-                if(!isset($this->_modeStrings[$this->_viewData["mode"]]))
+                /*if(!isset($this->_modeStrings[$this->_viewData["mode"]]))
                 {
                     error_log($this->toString()." ".$this->_viewData["mode"], 0);
 
-                    \Utilities\Site::redirectToWithMsg("index.php?page=mnt.Autenticados.Autenticados",
+                    \Utilities\Site::redirectToWithMsg("IndexAuth.php?page=mnt.Autenticados.Autenticados",
                     "Sucedio un error al procesar la pagina");
                 }
 
                 if($this->_viewData["mode"] != "INS" && intval($this->_viewData["invPrdId"], 10) != 0)
                 {
                     $this->_viewData["mode"] !== "DSP";
-                }
+                }*/
 
             }
 
@@ -71,15 +72,16 @@
             {
                 \Utilities\ArrUtils::mergeFullArrayTo($_POST, $this->_viewData);
 
-                if(!isset($_SESSION["Autenticado_xssToken"]) || $_SESSION["Autenticado_xssToken"] !== $this->_viewData["xssToken"])
+                /*if(!isset($_SESSION["Autenticado_xssToken"]) || $_SESSION["Autenticado_xssToken"] !== $this->_viewData["xssToken"])
                 {
                     unset($_SESSION["Autenticado_xssToken"]);
                     \Utilities\Site::redirectToWithMsg(
-                        "index.php?page=mnt.Autenticados.Autenticados",
+                        "IndexAuth.php?page=mnt.Autenticados.Autenticados",
                     "Ocurrio un error, no se puede procesar el formulario");
-                }
+                }*/
 
                 $this->_viewData["invPrdId"] = intval($this->_viewData["invPrdId"], 10);
+                $this->_viewData["usercod"] = intval($this->_viewData["usercod"], 10);
 
                 if(true)/* aplicar validaciones */
                 {
@@ -97,77 +99,57 @@
                 else
                 {
 
-                    unset($_SESSION["Autenticado_xssToken"]);
-                        
-                    switch($this->_viewData["mode"])
+                    $tmpAnonima = \Dao\Mnt\Autenticados::obtenerAutenticadoPorId(intval($this->_viewData["usercod"]), intval($this->_viewData["invPrdId"]));
+                    
+                    if(!$tmpAnonima)
                     {
-
-                        CASE "INS":                    
-                            $result = \Dao\Mnt\Autenticados::newAutenticado($this->_viewData["cartCtd"],$this->_viewData["cartPrc"],$this->_viewData["cartIat"]);
-
-                        if($result)
+                        if($this->_viewData["cartCtd"] <= 0)
                         {
-                            \Utilities\Site::redirectToWithMsg("index.php?page=mnt.Autenticados.Autenticados", "Operacion realizada con exito");
+                            \Utilities\Site::redirectToWithMsg("index.php?page=IndexAuth", "Ingrese al menos 1 producto");
                         }
-                        break;
-
-                        CASE "UPD":                    
-                            $result = \Dao\Mnt\Autenticados::actualizarAutenticado($this->_viewData["usercod"],$this->_viewData["invPrdId"],$this->_viewData["cartCtd"],$this->_viewData["cartPrc"],$this->_viewData["cartIat"]);
-
-                        if($result)
+                        else
                         {
-                            \Utilities\Site::redirectToWithMsg("index.php?page=mnt.Autenticados.Autenticados", "Operacion realizada con exito");
+                            $result = \Dao\Mnt\Autenticados::newAutenticadoAuth($this->_viewData["usercod"], $this->_viewData["invPrdId"], $this->_viewData["cartCtd"],$this->_viewData["cartPrc"], date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")."+ 5 days")));
+
+                            if($result)
+                            {
+                                \Utilities\Site::redirectToWithMsg("index.php?page=Catalogo", "Agregado al carrito");
+                            }
+
                         }
-                        break;
-
-                        CASE "DEL":                    
-                            $result = \Dao\Mnt\Autenticados::eliminarAutenticado($this->_viewData["invPrdId"]);
-
-                        if($result)
-                        {
-                            \Utilities\Site::redirectToWithMsg("index.php?page=mnt.Autenticados.Autenticados", "Operacion realizada con exito");
-                        }
-                        break;
-
                     }
-                }
-            
-            }
+                    else
+                    {
+                        if($this->_viewData["cartCtd"] > 0)
+                        {
+                            $result = \Dao\Mnt\Autenticados::actualizarAutenticado($this->_viewData["usercod"],$this->_viewData["invPrdId"],$this->_viewData["cartCtd"]);
 
-            private function prepareViewData()
-            {
-                if($this->_viewData["mode"] == "INS")
-                {
-                    $this->_viewData["isInsert"] = true;
-                    $this->_viewData["modeDsc"] = $this->_modeStrings[$this->_viewData["mode"]];
-                }
-                else
-                {
+                            if($result)
+                            {
+                                \Utilities\Site::redirectToWithMsg("index.php?page=Catalogo", "Cantidad agregada al carrito");
+                            }
 
-                    $tmpAutenticado = \Dao\Mnt\Autenticados::obtenerAutenticadoPorId(intval($this->_viewData["invPrdId"]));
-                    \Utilities\ArrUtils::mergeFullArrayTo($tmpAutenticado, $this->_viewData);
-            
+                        }
+                        else
+                        {
+                            $result = \Dao\Mnt\Autenticados::eliminarAutenticado($this->_viewData["usercod"], $this->_viewData["invPrdId"]);
 
-                    $this->_viewData["modeDsc"] = sprintf($this->_modeStrings[$this->_viewData["mode"]], $this->_viewData["invPrdId"], $this->_viewData["invPrdId"]);
+                            if($result)
+                            {
+                                \Utilities\Site::redirectToWithMsg("index.php?page=Catalogo", "Producto eliminado del carrito");
+                            }
 
-                    if($this->_viewData["mode"] == "DSP" || $this->_viewData["mode"] == "DEL")
-                    {   
-                        $this->_viewData["readonly"] = "readonly";
+                        }
+                        
+
                     }
                         
+                   
                 }
-
-                $this->_viewData["cmbOptions"] = \Utilities\ArrUtils::toOptionsArray(
-                    $this->_cmbOptions,
-                    "value",
-                    "text",
-                    "selected",                
-                    $this->_viewData["option"]
-                );
-
-                $this->_viewData["xssToken"] = md5(time() . "Autenticado");
-                $_SESSION["Autenticado_xssToken"] = $this->_viewData["xssToken"];
+            
             }
+
+           
 
                 public function run(): void
                 {
@@ -178,8 +160,7 @@
                     {
                         $this->handlePost();
                     }
-                    $this->prepareViewData();
-                    Renderer::render("mnt/Autenticado", $this->_viewData);
+                    Renderer::render("Catalogo", $this->_viewData);
                 }
         }
 

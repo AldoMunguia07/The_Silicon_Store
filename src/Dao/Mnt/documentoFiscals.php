@@ -33,6 +33,21 @@ class documentoFiscals extends Table
                         
                     }*/
 
+       public static function MisDetalles($docCod)
+        {
+            $sqlstr = "	select DCL.invPrdId, C.nombre, C.descripcion, M.marca,DCL.docLObs, DCL.docPrc, DCL.docCtd, ROUND((docPrc*0.15 + docPrc) * docCtd,2) Subtotal, DCL.docDsc
+            from documento_fiscal_lineas DCL INNER JOIN celular C 
+            ON DCL.invPrdId = C.invPrdId 
+            INNER JOIN marca M on M.idMarca = C.idMarca
+            where doccod = :docCod;";
+            return self::obtenerRegistros(
+                $sqlstr,
+                array("docCod" => $docCod)
+            );
+            
+        }
+
+
     public static function newdocumentoFiscal($doccod, $invPrdId, $docCtd, $docPrc, $docIva, $docLObs, $docDsc)
     {
         $sqlsrt = "INSERT INTO documento_fiscal_lineas (doccod, invPrdId, docCtd,docPrc,docIva,docLObs,docDsc) values (:doccod, :invPrdId, :docCtd,:docPrc,:docIva,:docLObs,:docDsc);";

@@ -201,7 +201,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `the_silicon_store`.`funciones` (
   `fncod` VARCHAR(255) NOT NULL,
-  `fndsc` VARCHAR(45) NULL DEFAULT NULL,
+  `fndsc` VARCHAR(255) NULL DEFAULT NULL,
   `fnest` CHAR(3) NULL DEFAULT NULL,
   `fntyp` CHAR(3) NULL DEFAULT NULL,
   PRIMARY KEY (`fncod`))
@@ -259,6 +259,15 @@ CREATE TABLE IF NOT EXISTS `the_silicon_store`.`roles_usuarios` (
     REFERENCES `the_silicon_store`.`usuario` (`usercod`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+DELIMITER $$
+CREATE TRIGGER ReducirStock after INSERT on documento_fiscal_lineas
+for each row
+BEGIN
+	UPDATE inventario SET cantidad = cantidad - (new.docCtd) where invPrdId = (new.invPrdId);
+    
+END$$
+DELIMITER ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

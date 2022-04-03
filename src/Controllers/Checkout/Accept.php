@@ -55,10 +55,14 @@ class Accept extends PublicController{
 
                 }
             }
+
+            $viewData["miDetalle"] = \Dao\Mnt\documentoFiscals::MisDetalles($idFactura);
+            \Views\Renderer::render("mnt\miDetalle", $viewData);
             
         }
        
-        \Views\Renderer::render("paypal/accept", $dataview);
+        //\Views\Renderer::render("paypal/accept", $dataview);
+        
     }
 }
 

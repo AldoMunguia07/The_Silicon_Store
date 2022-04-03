@@ -1,6 +1,7 @@
 
             <h1>Mi carrito</h1>
             <hr>
+            {{if mostrar}}
 
             <table>
                 <thead>
@@ -32,8 +33,12 @@
             </tbody>
             
         </table>
-        {{if mostrar}}
+        
         <form action="index.php?page=checkout_checkout" method="post">
             <button type="submit" name="btnConfirmar" class="btn primary">Pagar</button>
         </form>
         {{endif mostrar}}
+         {{ifnot mostrar}}
+        <h2>No ha realizado ninguna transacción</h2>
+       
+        {{endifnot mostrar}}

@@ -25,10 +25,9 @@ class Checkout extends PublicController{
                 $codigo = $order["carretilla_auth"][$i]["codigo"];
                 $nombre = $order["carretilla_auth"][$i]["nombre"];
                 $descripcion = $order["carretilla_auth"][$i]["descripcion"];
-                $marca = $order["carretilla_auth"][$i]["marca"];
                 $precio = $order["carretilla_auth"][$i]["precio"];
                 $cantidad = $order["carretilla_auth"][$i]["cantidad"];
-                $impuesto = $order["carretilla_auth"][$i]["impuesto"];
+                
 
                 $PayPalOrder->addItem($nombre, $descripcion, $codigo, $precio, 15, $cantidad , "DIGITAL_GOODS");
 

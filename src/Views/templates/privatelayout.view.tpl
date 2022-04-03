@@ -28,7 +28,9 @@
     <h1>{{SITE_TITLE}}</h1>
     <nav id="menu">
       <ul>
-        <li><a href="index.php?page=admin_admin"><i class="fas fa-home"></i>&nbsp;Inicio</a></li>
+        <li><a href="index.php?page=IndexAuth"><i class="fas fa-home"></i>&nbsp;Inicio</a></li>
+        <li><a href="index.php?page=Catalogo"><i class="fas fa-home"></i>&nbsp;Catalogo</a></li>
+         <li><a href="index.php?page=mnt.misTransacciones.misTransacciones"><i class="fas fa-home"></i>&nbsp;Mis transacciones</a></li>
         {{foreach NAVIGATION}}
             <li><a href="{{nav_url}}">{{nav_label}}</a></li>
         {{endfor NAVIGATION}}

@@ -7,8 +7,8 @@
 
             public static function obtenerTodos($anoncartid)
             {
-                $sqlsrt = "SELECT b.invPrdId codigo, b.nombre, b.descripcion, c.marca, a.cartPrc precio, a.cartCtd cantidad,
-                (a.cartCtd * a.cartPrc) total
+                $sqlsrt = "SELECT b.invPrdId codigo, b.nombre, b.descripcion, c.marca, ROUND((a.cartPrc + (a.cartPrc * 0.15)), 2) precio, a.cartCtd cantidad,
+                ROUND(((a.cartPrc + (a.cartPrc * 0.15)) * a.cartCtd), 2) total
                 FROM carretilla_anon a JOIN celular b
                 ON a.invPrdId = b.invPrdId
                 JOIN marca c ON b.idMarca = c.idMarca

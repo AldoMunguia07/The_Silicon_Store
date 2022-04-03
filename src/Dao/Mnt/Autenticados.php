@@ -7,8 +7,8 @@
 
             public static function obtenerTodos($usercod)
             {
-                $sqlsrt = "SELECT b.invPrdId codigo, b.nombre, b.descripcion, c.marca, a.cartPrc precio, a.cartCtd cantidad, 
-                (a.cartCtd * a.cartPrc) total
+                $sqlsrt = "SELECT b.invPrdId codigo, b.nombre, b.descripcion, c.marca, ROUND((a.cartPrc + (a.cartPrc * 0.15)), 2) precio, a.cartCtd cantidad, 
+                  ROUND(((a.cartPrc + (a.cartPrc * 0.15)) * a.cartCtd), 2) total
                 FROM carretilla_auth a JOIN celular b
                 ON a.invPrdId = b.invPrdId
                 JOIN marca c ON b.idMarca = c.idMarca
@@ -17,12 +17,12 @@
                 
             }
 
-                    public static function obtenerAutenticadoPorId($usercod)
+                    public static function obtenerAutenticadoPorId($usercod, $invPrdId)
                     {
-                        $sqlsrt = "SELECT * FROM carretilla_auth WHERE usercod=:usercod;";
+                        $sqlsrt = "SELECT * FROM carretilla_auth WHERE usercod=:usercod AND invPrdId=:invPrdId;";
                         return self::obtenerUnRegistro(
                             $sqlsrt, 
-                            array("usercod" => $usercod)
+                            array("usercod" => $usercod,"invPrdId" => $invPrdId)
                         );
                         
                     }
@@ -60,14 +60,13 @@
                     );
             }
 
-            public static function actualizarAutenticado($usercod,$invPrdId,$cartCtd,$cartPrc,$cartIat)
+            public static function newAutenticadoAuth($usercod, $invPrdId, $cartCtd,$cartPrc,$cartIat)
             {
-                $sqlsrt = "UPDATE carretilla_auth SET cartCtd=:cartCtd,cartPrc=:cartPrc,cartIat=:cartIat WHERE usercod=:usercod,invPrdId=:invPrdId;";
-        
+                $sqlsrt = "INSERT INTO carretilla_auth (usercod, invPrdId, cartCtd,cartPrc,cartIat) values (:usercod, :invPrdId, :cartCtd,:cartPrc,:cartIat)";
+
                 return self::executeNonQuery(
                     $sqlsrt, 
                     array(
-
                             "usercod" => $usercod,
 
                             "invPrdId" => $invPrdId,
@@ -77,6 +76,24 @@
                             "cartPrc" => $cartPrc,
 
                             "cartIat" => $cartIat,
+
+                    )
+                    );
+            }
+
+            public static function actualizarAutenticado($usercod,$invPrdId,$cartCtd)
+            {
+                $sqlsrt = "UPDATE carretilla_auth SET cartCtd=:cartCtd WHERE usercod=:usercod AND invPrdId=:invPrdId;";
+        
+                return self::executeNonQuery(
+                    $sqlsrt, 
+                    array(
+
+                            "usercod" => $usercod,
+
+                            "invPrdId" => $invPrdId,
+
+                            "cartCtd" => $cartCtd
 
                     )
                     );

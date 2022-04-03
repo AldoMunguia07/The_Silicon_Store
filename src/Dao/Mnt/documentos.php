@@ -22,6 +22,20 @@ class documentos extends Table
         );
     }
 
+    public static function MisTransacciones($idUser)
+        {
+            $sqlstr = "select DC.doccod,DC.docfch,DC.docobs,DC.docFrmPgo, ROUND(SUM((docPrc*0.15 + docPrc) * docCtd),2) Total from documento_fiscal DC INNER JOIN documento_fiscal_lineas DCL
+            ON DC.doccod = DCL.doccod WHERE usercod = :usercod
+            GROUP BY DC.doccod,DC.docfch,DC.docobs,DC.docFrmPgo;";
+            return self::obtenerRegistros(
+                $sqlstr,
+                array("usercod" => $idUser)
+            );
+            
+        }
+
+
+
     public static function newdocumento($usercod, $docobs, $docshipping, $docest, $docmeta, $docfchdlv, $docestdlv, $docFrmPgo)
     {
         $sqlsrt = "INSERT INTO documento_fiscal (docfch,usercod,docobs,docshipping,docest,docmeta,docfchdlv,docestdlv,docFrmPgo) values (:docfch,:usercod,:docobs,:docshipping,:docest,:docmeta,:docfchdlv,:docestdlv,:docFrmPgo);";

@@ -1,7 +1,7 @@
 
             <h1>Mi carrito</h1>
             <hr>
-
+        {{if mostrar}}
             <table>
                 <thead>
                     <tr>
@@ -32,9 +32,12 @@
             </tbody>
             
         </table>
-       {{if mostrar}}
+       
         <form action="index.php?page=mnt-Autenticados-Autenticados" method="post">
             <button type="submit" name="btnConfirmar" class="btn primary">Pagar</button>
         </form>
         {{endif mostrar}}
+        {{ifnot mostrar}}
+            <h2>No ha agregado ningún producto al carrito</h2>
+        {{endifnot mostrar}}
     
