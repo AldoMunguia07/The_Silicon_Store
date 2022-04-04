@@ -269,6 +269,46 @@ BEGIN
 END$$
 DELIMITER ;
 
+use the_silicon_store;
+
+INSERT INTO `roles` VALUES ('1','Administrador','ACT');
+INSERT INTO `roles` VALUES ('2','Publico','ACT');
+INSERT INTO `funciones` VALUES ('Controllers\\Admin\\Admin','Controllers\\Admin\\Admin','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Catalogo','Controllers\\Catalogo','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\IndexAuth','Controllers\\IndexAuth','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\IndexAuth\\IndexAuth','Controllers\\IndexAuth\\IndexAuth','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Mnt\\Autenticados\\Autenticado','Controllers\\Mnt\\Autenticados\\Autenticado','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Mnt\\Autenticados\\Autenticados','Controllers\\Mnt\\Autenticados\\Autenticados','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Mnt\\celulars\\celular','Controllers\\Mnt\\celulars\\celular','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Mnt\\celulars\\celulars','Controllers\\Mnt\\celulars\\celulars','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Mnt\\inventarios\\inventario','Controllers\\Mnt\\inventarios\\inventario','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Mnt\\inventarios\\inventarios','Controllers\\Mnt\\inventarios\\inventarios','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Mnt\\marcas\\marca','Controllers\\Mnt\\marcas\\marca','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Mnt\\marcas\\marcas','Controllers\\Mnt\\marcas\\marcas','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Mnt\\miDetalle\\miDetalle','Controllers\\Mnt\\miDetalle\\miDetalle','ACT','CTR');
+INSERT INTO `funciones` VALUES ('Controllers\\Mnt\\misTransacciones\\misTransacciones','Controllers\\Mnt\\misTransacciones\\misTransacciones','ACT','CTR');
+INSERT INTO `funciones` VALUES ('MntUsuarios','MntUsuarios','ACT','CTR');
+
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Catalogo','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\IndexAuth','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\IndexAuth\\IndexAuth','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Mnt\\Autenticados\\Autenticado','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Mnt\\Autenticados\\Autenticados','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Mnt\\celulars\\celular','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Mnt\\celulars\\celulars','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Mnt\\inventarios\\inventario','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Mnt\\inventarios\\inventarios','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Mnt\\marcas\\marca','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Mnt\\marcas\\marcas','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Mnt\\miDetalle\\miDetalle','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('1','Controllers\\Mnt\\misTransacciones\\misTransacciones','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('2','Controllers\\Catalogo','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('2','Controllers\\IndexAuth','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('2','Controllers\\Mnt\\Autenticados\\Autenticado','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('2','Controllers\\Mnt\\Autenticados\\Autenticados','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('2','Controllers\\Mnt\\miDetalle\\miDetalle','ACT','2023-04-02 00:00:00');
+INSERT INTO `funciones_roles` VALUES ('2','Controllers\\Mnt\\misTransacciones\\misTransacciones','ACT','2023-04-02 00:00:00');
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
