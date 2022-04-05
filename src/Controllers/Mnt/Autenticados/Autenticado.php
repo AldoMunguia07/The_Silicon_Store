@@ -105,7 +105,7 @@
                     {
                         if($this->_viewData["cartCtd"] <= 0)
                         {
-                            \Utilities\Site::redirectToWithMsg("index.php?page=IndexAuth", "Ingrese al menos 1 producto");
+                            \Utilities\Site::redirectToWithMsg("index.php?page=Catalogo", "Ingrese al menos 1 producto");
                         }
                         else
                         {
