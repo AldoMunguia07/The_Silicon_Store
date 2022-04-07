@@ -111,24 +111,6 @@ CREATE TABLE IF NOT EXISTS `the_silicon_store`.`usuario` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-
--- -----------------------------------------------------
--- Table `The_Silicon_Store`.`bitacora`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `The_Silicon_Store`.`bitacora` (
-  `idBitacora` BIGINT(13) NOT NULL,
-  `usercod` BIGINT NOT NULL,
-  `accion` VARCHAR(255) NOT NULL,
-  `fecha` DATETIME NOT NULL,
-  PRIMARY KEY (`idBitacora`),
-   CONSTRAINT `fk_bitacora_usuarios_idx`
-    FOREIGN KEY (`usercod`)
-    REFERENCES `the_silicon_store`.`usuario` (`usercod`))
-ENGINE = InnoDB;
-
-USE `the_silicon_store` ;
-
-
 -- -----------------------------------------------------
 -- Table `the_silicon_store`.`carretilla_auth`
 -- -----------------------------------------------------
